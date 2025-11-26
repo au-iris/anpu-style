@@ -1,98 +1,403 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BIG DAWG ANPU</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>IRIS Anpu Style — Fashion Landing</title>
+  <meta name="description" content="IRIS Anpu Style — street-luxe fashion. Move. Shape. Shine." />
   <style>
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: #000;
-      color: #fff;
-    }
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2100&q=80') center/cover no-repeat;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.7);
-    }
-    .hero h1 {
-      font-size: 4rem;
-      letter-spacing: 4px;
-      font-weight: 900;
-      margin: 0;
-    }
-    .hero h2 {
-      font-size: 1.5rem;
-      margin-top: 10px;
-      opacity: 0.85;
-      font-weight: 300;
-    }
-    .cta-btn {
-      margin-top: 40px;
-      padding: 15px 40px;
-      background: #c4a873;
-      color: #000;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      text-decoration: none;
-      transition: 0.2s ease;
-    }
-    .cta-btn:hover {
-      background: #e6d2a2;
-      transform: scale(1.05);
+    :root{
+      --bg:#0b0b0c;
+      --muted:#9aa0a6;
+      --gold:#c9a75a;
+      --dark-gold:rgba(201,167,90,0.45);
+      --amber:#b8860b;
+      --amber-strong:#cc9a10;
+      --card:#0f1112;
+      --container:1200px;
+      --glass: rgba(255,255,255,0.03);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:#e9eef3;
     }
 
-    .section {
-      padding: 80px 20px;
-      max-width: 900px;
-      margin: auto;
-      text-align: center;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:linear-gradient(180deg,var(--bg) 0%,#071014 100%);color:inherit;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    .wrap{max-width:var(--container);margin:0 auto;padding:28px}
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 0;position:relative}
+/* Mobile menu button */
+.menu-btn{display:none;background:transparent;border:1px solid var(--dark-gold);padding:8px 12px;border-radius:8px;color:var(--gold);cursor:pointer}
+@media(max-width:640px){.menu-btn{display:block}nav{display:none}}
+/* Mobile menu panel */
+.mobile-panel{position:fixed;top:0;right:-100%;width:70%;height:100%;background:#0c0c0d;border-left:1px solid var(--dark-gold);padding:24px;transition:0.3s;display:flex;flex-direction:column;gap:20px}
+.mobile-panel.open{right:0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#111}
+
+    /* Buttons - updated masculine + dark gold borders */
+    .btn{
+      padding:10px 16px;border-radius:10px;background:var(--amber);border:1px solid var(--dark-gold);color:#0a0a0a;font-weight:700;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease, opacity .18s ease;opacity:0.95;
     }
-    .section h3 {
-      font-size: 2rem;
-      margin-bottom: 20px;
+    .btn:active{transform:translateY(1px)}
+    .btn:hover{opacity:1;background:var(--amber-strong);box-shadow:0 6px 20px rgba(204,154,16,0.12)}
+
+    .btn-outline{padding:10px 16px;border-radius:10px;background:transparent;border:1px solid var(--dark-gold);color:var(--muted);font-weight:700;cursor:pointer;opacity:0.9}
+    .btn-outline:hover{color:var(--gold);border-color:var(--gold)}
+
+    /* Mobile nav */
+    .nav-toggle{display:none;background:transparent;border:0;color:var(--muted);font-size:18px}
+    .mobile-nav{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(4,4,5,0.95),rgba(8,8,10,0.95));padding:60px 28px;z-index:80}
+    .mobile-nav a{display:block;color:var(--muted);padding:12px 0;text-decoration:none;font-size:20px}
+
+    /* Hero */
+    .hero{min-height:72vh;display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:40px 0}
+    .hero-copy h1{font-size:48px;line-height:1.02;margin:0 0 12px;letter-spacing:-0.02em}
+    .tagline{color:var(--muted);margin-bottom:18px}
+    .cta-row{display:flex;gap:12px}
+
+    /* subtle entrance animations */
+    .reveal{opacity:0;transform:translateY(10px);animation:slideUp .6s forwards cubic-bezier(.2,.9,.2,1)}
+    .reveal.delay{animation-delay:.12s}
+    @keyframes slideUp{to{opacity:1;transform:none}}
+
+    /* Cards + Imagery */
+    .card{background:var(--card);padding:14px;border-radius:12px;overflow:hidden;border:1px solid rgba(201,167,90,0.06)}
+    .product-photo{height:280px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.12));display:flex;align-items:center;justify-content:center}
+
+    /* Product grid (expandable) */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .product-title{margin:10px 0 4px;font-weight:700}
+    .product-desc{color:var(--muted);font-size:13px}
+
+    /* strips with scroll-snap */
+    .strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;scroll-padding:20px}
+    .tile{min-width:320px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.06));padding:18px;scroll-snap-align:start}
+    .strip::-webkit-scrollbar{height:8px}
+    .strip::-webkit-scrollbar-thumb{background:rgba(201,167,90,0.12);border-radius:4px}
+
+    /* IRIS Anpu Style Block */
+    .IRIS Anpu Style{background:linear-gradient(180deg,rgba(8,8,10,0.6),rgba(5,5,6,0.6));border-radius:16px;padding:28px;border:1px solid var(--dark-gold);display:grid;grid-template-columns:1fr 420px;gap:20px;position:relative;overflow:hidden}
+    .IRIS Anpu Style h2{color:var(--gold);margin:0 0 10px}
+
+    /* IRIS Anpu Style glyph watermark */
+    .IRIS Anpu Style::after{content:"";position:absolute;right:12px;bottom:-40px;width:320px;height:320px;background:radial-gradient(circle at 40% 40%, rgba(201,167,90,0.06), transparent 30%), conic-gradient(from 220deg, rgba(201,167,90,0.03), transparent 30%);transform:rotate(-18deg);pointer-events:none}
+
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(201,167,90,0.10);color:var(--gold);font-weight:700;font-size:13px;border:1px solid var(--dark-gold)}
+
+    /* footer */
+    footer{padding:38px 0;color:var(--muted);font-size:14px}
+
+    /* Utility */
+    .center{display:flex;align-items:center;justify-content:center}
+    .email-box{display:flex;gap:8px;max-width:560px}
+    input[type=email]{flex:1;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+
+    /* small helpers */
+    a{color:inherit}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .IRIS Anpu Style{grid-template-columns:1fr}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .wrap{padding:20px}
+      .nav-toggle{display:inline-block}
+      nav{display:none}
     }
-    .footer {
-      padding: 30px;
-      text-align: center;
-      opacity: 0.6;
-      font-size: 0.9rem;
+    @media (max-width:640px){
+      .grid{grid-template-columns:1fr}
+      .hero-copy h1{font-size:34px}
+      .IRIS Anpu Style::after{display:none}
+      .btn{padding:9px 12px}
+      .nav-toggle{font-size:20px}
     }
-  </style>
+    html {
+      scroll-behavior: smooth;
+    }
+</style>
 </head>
 <body>
 
-  <div class="hero">
-    <h1>BIG DAWG ANPU</h1>
-    <h2>POWER • MYSTERY • LEGACY</h2>
-    <a href="#shop" class="cta-btn">ENTER THE DEN</a>
+  <div class="wrap">
+
+    <header>
+      <div class="brand">
+        <div class="logo" style="background:linear-gradient(135deg,var(--dark-gold),#2a210f)">AN</div>
+        <div>
+          <div style="font-weight:700">IRIS Anpu Style</div>
+          <div style="font-size:12px;color:var(--muted)">Street · Mythic · Guard</div>
+        </div>
+      </div>
+
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+<nav>
+  <a href="#collections" style="color:var(--muted);margin-left:18px;text-decoration:none">Collections<\/a>
+  <a href="#IRIS Anpu Style" style="color:var(--muted);margin-left:18px;text-decoration:none">IRIS Anpu Style<\/a>
+  <a href="#about" style="color:var(--muted);margin-left:18px;text-decoration:none">About<\/a>
+  <button class="btn">Shop Drop<\/button>
+<\/nav>
+<div class="mobile-panel" id="mPanel">
+  <a href="#collections">Collections<\/a>
+  <a href="#IRIS Anpu Style">IRIS Anpu Style<\/a>
+  <a href="#about">About<\/a>
+  <button class="btn">Shop Drop<\/button>
+<\/div>
+
+      <button class="nav-toggle" id="navToggle">☰</button>
+    </header>
+
+    <!-- Mobile nav overlay -->
+    <div id="mobileNav" class="mobile-nav" aria-hidden="true">
+      <a href="#collections">Collections</a>
+      <a href="#IRIS Anpu Style">IRIS Anpu Style</a>
+      <a href="#about">About</a>
+      <a href="#" style="margin-top:18px;"><button class="btn" style="width:100%">Shop Drop</button></a>
+    </div>
+
+    <!-- HERO -->
+    <main class="hero">
+      <div class="hero-copy reveal">
+        <h1>Move. Shape. Shine.</h1>
+        <div class="tagline">Minimal, luxe, guardian-edged streetwear for the ones who never wait.</div>
+        <div class="cta-row">
+          <button class="btn">Shop the Drop</button>
+          <button class="btn-outline">View Lookbook</button>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal delay" style="border-radius:16px;overflow:hidden;background:linear-gradient(120deg,#0a0a0a,#1a1a1b);box-shadow:0 10px 30px rgba(0,0,0,0.6);aspect-ratio:4\/5;display:flex;align-items:center;justify-content:center">
+        <div class="placeholder" style="width:88%;height:88%;border-radius:10px;background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(201,167,90,0.05));padding:32px;display:flex;flex-direction:column;align-items:flex-start">
+          <h3 style="margin:0;color:var(--gold)">Featured — Capsule I</h3>
+          <div style="flex:1"></div>
+          <div style="font-size:12px;color:var(--muted)">Model: 6'1" • Jacket • Size M</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Featured Collection -->
+    <section id="collections" class="reveal delay">
+      <div class="section-title" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+        <div>
+          <h2 style="margin:0">Featured Collection</h2>
+          <div class="caption" style="color:var(--muted)">Where sharp lines meet midnight energy.</div>
+        </div>
+        <div class="caption" style="color:var(--muted)">3 bold pieces • curated</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="product-photo">Photo</div>
+          <div class="product-title">Asphalt Bomber</div>
+          <div class="product-desc">Structured fit — metallic stitch.</div>
+        </div>
+        <div class="card">
+          <div class="product-photo">Photo</div>
+          <div class="product-title">Graph Tee</div>
+          <div class="product-desc">Boxy silhouette — heavy cotton.</div>
+        </div>
+        <div class="card">
+          <div class="product-photo">Photo</div>
+          <div class="product-title">Highline Cargo</div>
+          <div class="product-desc">Utility pockets — tapered leg.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Identity Block -->
+    <section class="reveal" style="margin-top:40px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+        <div>
+          <h2 style="margin:0">Identity</h2>
+          <div class="caption" style="color:var(--muted)">Built for motion. Styled for impact.</div>
+        </div>
+      </div>
+      <p style="color:var(--muted);max-width:760px">IRIS Anpu Style blends streetwear fundamentals with guardian-inspired silhouettes — garments that hold shape while letting you move. We design for presence: clean lines, unexpected textures, and a palette that reads like nightlight.</p>
+    </section>
+
+    <!-- Night Mode Strip -->
+    <section class="reveal delay" style="margin-top:40px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+        <div>
+          <h2 style="margin:0">Night Mode</h2>
+          <div class="caption" style="color:var(--muted)">Black, chrome, velvet — the city after hours.</div>
+        </div>
+      </div>
+      <div class="strip">
+        <div class="tile">
+          <div style="height:200px;border-radius:10px;background:linear-gradient(135deg,#050606,#0b0b0c);display:flex;align-items:center;justify-content:center">Look 01</div>
+          <div style="margin-top:10px;font-weight:700">Midnight Trench</div>
+          <div class="product-desc">Weather-shielded—ceremonial cut.</div>
+        </div>
+        <div class="tile">
+          <div style="height:200px;border-radius:10px;background:linear-gradient(135deg,#101214,#121416);display:flex;align-items:center;justify-content:center">Look 02</div>
+          <div style="margin-top:10px;font-weight:700">Chrome Vest</div>
+          <div class="product-desc">Armor lines—refined hardware.</div>
+        </div>
+        <div class="tile">
+          <div style="height:200px;border-radius:10px;background:linear-gradient(135deg,#071018,#0a0b0c);display:flex;align-items:center;justify-content:center">Look 03</div>
+          <div style="margin-top:10px;font-weight:700">Velvet Slip</div>
+          <div class="product-desc">Contrast texture—night ready.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Signature Pieces -->
+    <section class="reveal" style="margin-top:40px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+        <div>
+          <h2 style="margin:0">Signature Pieces</h2>
+          <div class="caption" style="color:var(--muted)">Essential silhouettes. Zero noise.</div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="product-photo">Photo</div>
+          <div class="product-title">Core Tee</div>
+          <div class="product-desc">Everyday weight — clean neck.</div>
+        </div>
+        <div class="card">
+          <div class="product-photo">Photo</div>
+          <div class="product-title">Utility Pant</div>
+          <div class="product-desc">Tapered—perfect balance.</div>
+        </div>
+        <div class="card">
+          <div class="product-photo">Photo</div>
+          <div class="product-title">Slip-On Runner</div>
+          <div class="product-desc">Low profile—cushioned.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Minimal Core -->
+    <section class="reveal delay" style="margin-top:40px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+        <div>
+          <h2 style="margin:0">Minimal Core</h2>
+          <div class="caption" style="color:var(--muted)">Quiet design. Heavy presence.</div>
+        </div>
+        <div class="caption" style="color:var(--muted)"><a href="#" style="color:var(--muted);text-decoration:none">View Minimal Core</a></div>
+      </div>
+      <div style="border-radius:12px;overflow:hidden;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(0,0,0,0.08));height:320px;display:flex;align-items:center;justify-content:center">Hero Photo</div>
+    </section>
+
+    <!-- Culture / Social Proof -->
+    <section class="reveal" style="margin-top:40px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+        <div>
+          <h2 style="margin:0">Seen On</h2>
+          <div class="caption" style="color:var(--muted)">Seen on the streets that matter.</div>
+        </div>
+      </div>
+      <div class="strip">
+        <div class="tile">IG • Look 1</div>
+        <div class="tile">IG • Look 2</div>
+        <div class="tile">IG • Look 3</div>
+        <div class="tile">IG • Look 4</div>
+      </div>
+    </section>
+
+    <!-- IRIS Anpu Style Themed Block -->
+    <section id="IRIS Anpu Style" class="reveal delay" style="margin-top:40px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+        <div>
+          <h2 style="margin:0">IRIS Anpu Style</h2>
+          <div class="caption" style="color:var(--muted)">Shadow. Gold. Guidance.</div>
+        </div>
+        <div class="caption" style="color:var(--muted)">Fashion for the ones who walk between worlds.</div>
+      </div>
+
+      <div class="IRIS Anpu Style">
+        <div>
+          <h2>Enter IRIS Anpu Style Collection</h2>
+          <p style="color:var(--muted)">Mythic modern. Protector energy. Streetwear with a ceremonial edge — structured jackets, armor-inspired trims, and weight-forward fabrics that read like ritual.</p>
+
+          <div class="ritual-list" style="margin-top:12px;display:flex;flex-direction:column;gap:10px">
+            <div class="badge">Ritual Piece</div>
+            <div style="font-weight:700">Guardian Coat — Structured, lined in gold micro-stitch.</div>
+            <div style="font-weight:700">Ceremonial Jacket — Angled shoulders, heavy drape.</div>
+            <div style="font-weight:700">Helix Trousers — Taper, engineered pockets.</div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center">
+          <div style="width:100%;height:200px;border-radius:10px;background:linear-gradient(135deg,#050405,#0d0b0b);display:flex;align-items:center;justify-content:center">IRIS Anpu Style Hero</div>
+          <button class="btn">Enter IRIS Anpu Style</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Athleisure / Motion -->
+    <section class="reveal" style="margin-top:40px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+        <div>
+          <h2 style="margin:0">Athleisure / Motion</h2>
+          <div class="caption" style="color:var(--muted)">Engineered for the ones who don’t wait.</div>
+        </div>
+      </div>
+      <div class="strip">
+        <div class="tile">Motion Set 01</div>
+        <div class="tile">Motion Set 02</div>
+        <div class="tile">Motion Set 03</div>
+      </div>
+    </section>
+
+    <!-- Email Capture -->
+    <section class="reveal delay" style="margin-top:40px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+        <div>
+          <h2 style="margin:0">Join the first wave</h2>
+          <div class="caption" style="color:var(--muted)">Early drops, restock alerts, and exclusive access.</div>
+        </div>
+      </div>
+
+      <div class="center">
+        <div class="email-box">
+          <input type="email" placeholder="Your email" aria-label="email" />
+          <button class="btn">Join</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="reveal" style="margin-top:40px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap">
+        <div style="max-width:420px">
+          <div style="font-weight:700">IRIS Anpu Style</div>
+          <div style="color:var(--muted);margin-top:8px">Streetwear with guardian energy. Crafted minimal. Built to last.</div>
+        </div>
+        <div style="display:flex;gap:24px">
+          <div>
+            <div style="font-weight:700">Shop</div>
+            <div class="caption">New • Collections • Accessories</div>
+          </div>
+          <div>
+            <div style="font-weight:700">Support</div>
+            <div class="caption">FAQ • Shipping • Returns</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;color:var(--muted);font-size:13px">© 2025 IRIS Anpu Style — All rights reserved</div>
+    </footer>
+
   </div>
 
-  <div id="shop" class="section">
-    <h3>The Brand</h3>
-    <p>
-      ANPU is more than fashion — it's command, presence, and shadow-work energy. 
-      Inspired by ancient strength and modern street precision.
-    </p>
-  </div>
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('mobileNav');
+      nav.classList.toggle('open');
+    }
 
-  <div class="section">
-    <h3>Signature Drop</h3>
-    <p>
-      Limited-release pieces built for leaders, not followers.
-      No repeats. No reruns. Only ascension.
-    </p>
-  </div>
-
-  <div class="footer">
-    © 2025 BIG DAWG ANPU • All Rights Reserved
-  </div>
-
+    // Auto‑close menu when a link is tapped
+    document.querySelectorAll('#mobileNav a').forEach(link => {
+      link.addEventListener('click', () => {
+        const nav = document.getElementById('mobileNav');
+        nav.classList.remove('open');
+      });
+    });
+</script>
 </body>
 </html>
+
